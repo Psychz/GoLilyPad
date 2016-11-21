@@ -220,7 +220,12 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 	case STATE_DISCONNECTED:
 		if handshakePacket, ok := packet.(*minecraft.PacketServerHandshake); ok {
 			this.protocolVersion = handshakePacket.ProtocolVersion
-			this.rawServerAddress = handshakePacket.ServerAddress
+			// this.rawServerAddress = handshakePacket.ServerAddress
+			split := strings.Split(handshakePacket.ServerAddress, "//PsychzGGA//")
+ 			this.rawServerAddress = split[0]
+ 			if len(split) > 1 {
+ 				this.remoteIp = split[1]
+ 			}
 			idx := strings.Index(this.rawServerAddress, "\x00")
 			if idx == -1 {
 				this.serverAddress = this.rawServerAddress
