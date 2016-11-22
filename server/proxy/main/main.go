@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"github.com/pkg/profile"
 )
 
 var VERSION string
@@ -19,6 +20,8 @@ var Cfg *config.Config
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
+	defer profile.Start().Stop()
+	
 
 	cfg, err := config.LoadConfig("proxy.yml")
 	if err != nil {
