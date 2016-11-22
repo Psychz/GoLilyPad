@@ -3,7 +3,7 @@ package v19
 import (
 	"errors"
 	"fmt"
-	"github.com/LilyPad/GoLilyPad/packet"
+	"github.com/Psychz/GoLilyPad/packet"
 	uuid "github.com/satori/go.uuid"
 	"io"
 )

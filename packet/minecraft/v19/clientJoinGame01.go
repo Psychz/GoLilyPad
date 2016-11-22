@@ -1,8 +1,8 @@
 package v19
 
 import (
-	"github.com/LilyPad/GoLilyPad/packet"
-	minecraft "github.com/LilyPad/GoLilyPad/packet/minecraft"
+	"github.com/Psychz/GoLilyPad/packet"
+	minecraft "github.com/Psychz/GoLilyPad/packet/minecraft"
 	"io"
 )
 

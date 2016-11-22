@@ -3,8 +3,8 @@ package connect
 import (
 	"errors"
 	"fmt"
-	"github.com/LilyPad/GoLilyPad/packet"
-	"github.com/LilyPad/GoLilyPad/packet/connect"
+	"github.com/Psychz/GoLilyPad/packet"
+	"github.com/Psychz/GoLilyPad/packet/connect"
 	"net"
 	"sync"
 	"sync/atomic"

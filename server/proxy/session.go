@@ -8,13 +8,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/LilyPad/GoLilyPad/packet"
-	"github.com/LilyPad/GoLilyPad/packet/minecraft"
-	mc17 "github.com/LilyPad/GoLilyPad/packet/minecraft/v17"
-	mc18 "github.com/LilyPad/GoLilyPad/packet/minecraft/v18"
-	mc19 "github.com/LilyPad/GoLilyPad/packet/minecraft/v19"
-	"github.com/LilyPad/GoLilyPad/server/proxy/auth"
-	"github.com/LilyPad/GoLilyPad/server/proxy/connect"
+	"github.com/Psychz/GoLilyPad/packet"
+	"github.com/Psychz/GoLilyPad/packet/minecraft"
+	mc17 "github.com/Psychz/GoLilyPad/packet/minecraft/v17"
+	mc18 "github.com/Psychz/GoLilyPad/packet/minecraft/v18"
+	mc19 "github.com/Psychz/GoLilyPad/packet/minecraft/v19"
+	"github.com/Psychz/GoLilyPad/server/proxy/auth"
+	"github.com/Psychz/GoLilyPad/server/proxy/connect"
 	uuid "github.com/satori/go.uuid"
 	"io/ioutil"
 	"net"
@@ -220,12 +220,15 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 	case STATE_DISCONNECTED:
 		if handshakePacket, ok := packet.(*minecraft.PacketServerHandshake); ok {
 			this.protocolVersion = handshakePacket.ProtocolVersion
-			// this.rawServerAddress = handshakePacket.ServerAddress
-			split := strings.Split(handshakePacket.ServerAddress, "//PsychzGGA//")
- 			this.rawServerAddress = split[0]
- 			if len(split) > 1 {
- 				this.remoteIp = split[1]
- 			}
+			if Cfg.Proxy.Authenticate {
+				split := strings.Split(handshakePacket.ServerAddress, "//PsychzGGA//")
+	 			this.rawServerAddress = split[0]
+	 			if len(split) > 1 {
+	 				this.remoteIp = split[1]
+	 			}
+			} else {
+				this.rawServerAddress = handshakePacket.ServerAddress
+			}
 			idx := strings.Index(this.rawServerAddress, "\x00")
 			if idx == -1 {
 				this.serverAddress = this.rawServerAddress

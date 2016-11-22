@@ -3,7 +3,7 @@ package minecraft
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/LilyPad/GoLilyPad/packet"
+	"github.com/Psychz/GoLilyPad/packet"
 	"github.com/klauspost/compress/zlib"
 	"io"
 	"io/ioutil"

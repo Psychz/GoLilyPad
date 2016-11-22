@@ -1,8 +1,8 @@
 package v18
 
 import (
-	"github.com/LilyPad/GoLilyPad/packet"
-	minecraft "github.com/LilyPad/GoLilyPad/packet/minecraft"
+	"github.com/Psychz/GoLilyPad/packet"
+	minecraft "github.com/Psychz/GoLilyPad/packet/minecraft"
 )
 
 const (

@@ -1,8 +1,8 @@
 package connect
 
 import (
-	clientConnect "github.com/LilyPad/GoLilyPad/client/connect"
-	packetConnect "github.com/LilyPad/GoLilyPad/packet/connect"
+	clientConnect "github.com/Psychz/GoLilyPad/client/connect"
+	packetConnect "github.com/Psychz/GoLilyPad/packet/connect"
 	uuid "github.com/satori/go.uuid"
 	"net"
 	"strconv"

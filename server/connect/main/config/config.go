@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/LilyPad/GoLilyPad/server/connect"
+	"github.com/Psychz/GoLilyPad/server/connect"
 	yaml "gopkg.in/yaml.v2"
 	"io/ioutil"
 	"regexp"

@@ -1,7 +1,7 @@
 package connect
 
 import "io"
-import "github.com/LilyPad/GoLilyPad/packet"
+import "github.com/Psychz/GoLilyPad/packet"
 
 type RequestAuthenticate struct {
 	Username string

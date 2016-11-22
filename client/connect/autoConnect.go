@@ -2,7 +2,7 @@ package connect
 
 import (
 	"fmt"
-	"github.com/LilyPad/GoLilyPad/packet/connect"
+	"github.com/Psychz/GoLilyPad/packet/connect"
 	"time"
 )
 

@@ -1,9 +1,9 @@
 package v19
 
 import (
-	"github.com/LilyPad/GoLilyPad/packet"
-	minecraft "github.com/LilyPad/GoLilyPad/packet/minecraft"
-	mc18 "github.com/LilyPad/GoLilyPad/packet/minecraft/v18"
+	"github.com/Psychz/GoLilyPad/packet"
+	minecraft "github.com/Psychz/GoLilyPad/packet/minecraft"
+	mc18 "github.com/Psychz/GoLilyPad/packet/minecraft/v18"
 )
 
 const (

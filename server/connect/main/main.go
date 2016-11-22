@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/LilyPad/GoLilyPad/server/connect"
-	"github.com/LilyPad/GoLilyPad/server/connect/main/config"
+	"github.com/Psychz/GoLilyPad/server/connect"
+	"github.com/Psychz/GoLilyPad/server/connect/main/config"
 	"io"
 	"os"
 	"runtime"

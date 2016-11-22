@@ -3,8 +3,8 @@ package v18
 import (
 	"errors"
 	"fmt"
-	"github.com/LilyPad/GoLilyPad/packet"
-	minecraft "github.com/LilyPad/GoLilyPad/packet/minecraft"
+	"github.com/Psychz/GoLilyPad/packet"
+	minecraft "github.com/Psychz/GoLilyPad/packet/minecraft"
 	"io"
 )
 

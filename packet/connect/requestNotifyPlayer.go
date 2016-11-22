@@ -1,7 +1,7 @@
 package connect
 
 import (
-	"github.com/LilyPad/GoLilyPad/packet"
+	"github.com/Psychz/GoLilyPad/packet"
 	uuid "github.com/satori/go.uuid"
 	"io"
 )

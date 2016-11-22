@@ -1,7 +1,7 @@
 package connect
 
 import (
-	"github.com/LilyPad/GoLilyPad/packet/connect"
+	"github.com/Psychz/GoLilyPad/packet/connect"
 )
 
 type RequestRecord struct {

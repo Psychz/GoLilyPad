@@ -5,7 +5,7 @@ import (
 	cryptoRand "crypto/rand"
 	"crypto/sha1"
 	"encoding/hex"
-	"github.com/LilyPad/GoLilyPad/packet/minecraft"
+	"github.com/Psychz/GoLilyPad/packet/minecraft"
 	"io"
 	"math/rand"
 )

@@ -1,7 +1,7 @@
 package v17
 
 import (
-	"github.com/LilyPad/GoLilyPad/packet"
+	"github.com/Psychz/GoLilyPad/packet"
 	"io"
 )
 

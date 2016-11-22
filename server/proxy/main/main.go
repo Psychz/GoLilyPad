@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/LilyPad/GoLilyPad/server/proxy"
-	"github.com/LilyPad/GoLilyPad/server/proxy/connect"
-	"github.com/LilyPad/GoLilyPad/server/proxy/main/config"
+	"github.com/Psychz/GoLilyPad/server/proxy"
+	"github.com/Psychz/GoLilyPad/server/proxy/connect"
+	"github.com/Psychz/GoLilyPad/server/proxy/main/config"
 	"io"
 	"os"
 	"runtime"
@@ -15,6 +15,7 @@ import (
 )
 
 var VERSION string
+var Cfg *config.Config
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -45,6 +46,8 @@ func main() {
 			stdinString <- str
 		}
 	}()
+
+	Cfg = cfg
 
 	connectDone := make(chan bool)
 	bindAddr := strings.Split(cfg.Proxy.Bind, ":")[0]

@@ -4,7 +4,7 @@ import (
 	cryptoRand "crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
-	"github.com/LilyPad/GoLilyPad/server/proxy/connect"
+	"github.com/Psychz/GoLilyPad/server/proxy/connect"
 	"net"
 	"time"
 )
