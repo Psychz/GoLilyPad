@@ -1,6 +1,7 @@
 package main
 
 import (
+	"runtime/pprof"
 	"bufio"
 	"fmt"
 	"github.com/Psychz/GoLilyPad/server/proxy"
@@ -12,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"github.com/pkg/profile"
+	// "github.com/pkg/profile"
 )
 
 var VERSION string
@@ -20,8 +21,10 @@ var Cfg *config.Config
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	defer profile.Start().Stop()
-	
+	// defer profile.Start().Stop()
+	f, _ := os.Create("Lilypad.cpuprofile")
+	pprof.StartCPUProfile(f)
+	defer pprof.StopCPUProfile()
 
 	cfg, err := config.LoadConfig("proxy.yml")
 	if err != nil {
