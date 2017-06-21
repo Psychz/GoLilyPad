@@ -19,7 +19,6 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"io/ioutil"
 	"net"
-	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -222,15 +221,11 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 	case STATE_DISCONNECTED:
 		if handshakePacket, ok := packet.(*minecraft.PacketServerHandshake); ok {
 			this.protocolVersion = handshakePacket.ProtocolVersion
-			if Cfg.Proxy.Authenticate {
-				split := strings.Split(handshakePacket.ServerAddress, "//PsychzGGA//")
-	 			this.rawServerAddress = split[0]
-	 			if len(split) > 1 {
-	 				this.remoteIp = split[1]
-	 			}
-			} else {
-				this.rawServerAddress = handshakePacket.ServerAddress
-			}
+			split := strings.Split(handshakePacket.ServerAddress, "//PsychzGGA//")
+	 		this.rawServerAddress = split[0]
+	 		if len(split) > 1 {
+	 			this.remoteIp = split[1]
+	 		}
 			this.serverAddress = strings.TrimSuffix(this.serverAddress, ".")
 			idx := strings.Index(this.rawServerAddress, "\x00")
 			if idx == -1 {
@@ -258,8 +253,8 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 					return
 				}
 				if this.protocolVersion >= mc112.VersionNum {
- 					this.protocol = mc112.Version
- 				} else if this.protocolVersion >= mc19.VersionNum01 {
+					this.protocol = mc112.Version
+				} else if this.protocolVersion >= mc19.VersionNum01 {
 					this.protocol = mc19.Version01
 				} else if this.protocolVersion >= mc19.VersionNum {
 					this.protocol = mc19.Version
