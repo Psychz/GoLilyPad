@@ -13,11 +13,13 @@ import (
 	mc17 "github.com/Psychz/GoLilyPad/packet/minecraft/v17"
 	mc18 "github.com/Psychz/GoLilyPad/packet/minecraft/v18"
 	mc19 "github.com/Psychz/GoLilyPad/packet/minecraft/v19"
+	mc112 "github.com/Psychz/GoLilyPad/packet/minecraft/v112"
 	"github.com/Psychz/GoLilyPad/server/proxy/auth"
 	"github.com/Psychz/GoLilyPad/server/proxy/connect"
 	uuid "github.com/satori/go.uuid"
 	"io/ioutil"
 	"net"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -85,7 +87,7 @@ func (this *Session) Serve() {
 	this.pipeline = packet.NewPacketPipeline()
 	this.pipeline.AddLast("varIntLength", packet.NewPacketCodecVarIntLength())
 	this.pipeline.AddLast("registry", minecraft.HandshakePacketServerCodec)
-	this.connCodec = packet.NewPacketConnCodec(this.conn, this.pipeline, 10*time.Second)
+	this.connCodec = packet.NewPacketConnCodec(this.conn, this.pipeline, 20*time.Second)
 	this.connCodec.ReadConn(this)
 }
 
@@ -229,6 +231,7 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 			} else {
 				this.rawServerAddress = handshakePacket.ServerAddress
 			}
+			this.serverAddress = strings.TrimSuffix(this.serverAddress, ".")
 			idx := strings.Index(this.rawServerAddress, "\x00")
 			if idx == -1 {
 				this.serverAddress = this.rawServerAddress
@@ -254,7 +257,9 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 					err = errors.New(fmt.Sprintf("Protocol version does not match: %d", this.protocolVersion))
 					return
 				}
-				if this.protocolVersion >= mc19.VersionNum01 {
+				if this.protocolVersion >= mc112.VersionNum {
+ 					this.protocol = mc112.Version
+ 				} else if this.protocolVersion >= mc19.VersionNum01 {
 					this.protocol = mc19.Version01
 				} else if this.protocolVersion >= mc19.VersionNum {
 					this.protocol = mc19.Version
@@ -307,7 +312,7 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 			} else {
 				players["max"] = this.server.MaxPlayers()
 			}
-			players["online"] = this.server.connect.Players()
+			players["online"] = (this.server.connect.Players() * 3 / 2)
 			players["sample"] = sample
 			description := make(map[string]interface{})
 			motds := this.server.router.RouteMotds(this.serverAddress)
@@ -348,6 +353,14 @@ func (this *Session) HandlePacket(packet packet.Packet) (err error) {
 	case STATE_LOGIN:
 		if loginStart, ok := packet.(*minecraft.PacketServerLoginStart); ok {
 			this.name = loginStart.Name
+			if len(this.name) > 16 {
+				err = errors.New("Unexpected name: length is more than 16")
+				return
+ 			}
+			if!regexreplace(this.name) {
+				err = errors.New("Unexpected name: pattern mismatch")
+				return
+			}
 			if this.server.Authenticate() {
 				this.serverId, err = GenSalt()
 				if err != nil {

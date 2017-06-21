@@ -32,6 +32,15 @@ func FormatUUID(uuid string) (val string) {
 	return
 }
 
+func regexreplace(s string) bool {
+    for i := 0;i < len(s);i++ {
+		if s[i] < 48 || s[i] < 65 && s[i] > 57 || s[i] > 122 {
+			return false
+		}
+    }
+    return true
+}
+
 func GenNameUUID(name string) (val string) {
 	md5 := md5.New()
 	md5.Write([]byte(name))

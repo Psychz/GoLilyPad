@@ -119,4 +119,13 @@ type IdMap struct {
 	PacketServerVehicleMove     int
 	PacketServerSteerBoat       int
 	PacketServerUseItem         int
+
+	// 1.12
+ 	PlayClientUnlockRecipes       int
+ 	PlayClientAdvancementProgress int
+ 	PlayClientAdvancements        int
+ 	PlayServerPrepareCraftingGrid int
+ 	PlayServerCraftingBookData    int
+ 	PlayServerAdvancementTab      int
+
 }
