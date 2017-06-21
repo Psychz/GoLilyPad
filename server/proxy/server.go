@@ -62,6 +62,10 @@ func (this *Server) ListenAndServe(addr string) (err error) {
 		return
 	}
 	var conn net.Conn
+	//We could change the amounts here but I think its just safe to have the max amount players?
+	JobQueue = make(chan Job, this.MaxPlayers())
+	dispatcher := NewDispatcher(this.MaxPlayers())
+	dispatcher.Run()
 	for {
 		conn, err = this.listener.Accept()
 		if err != nil {
@@ -71,7 +75,8 @@ func (this *Server) ListenAndServe(addr string) (err error) {
 			}
 			return
 		}
-		go NewSession(this, conn).Serve()
+		work := Job{this, conn}
+		JobQueue <- work
 	}
 	this.Close()
 	return
